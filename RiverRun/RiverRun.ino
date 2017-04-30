@@ -2,19 +2,20 @@
 #include <OneWire.h> // libreria para comunicacion serial
 #include <DallasTemperature.h> //libreria para formulas de temperatura
 
-#define ONE_WIRE_BUS 2
+#define ONE_WIRE_BUS 6
 #define Voltage 13
-#define TRIGGER_PIN  4
-#define ECHO_PIN     3
+#define TRIGGER_PIN  7
+#define ECHO_PIN     8
 #define MAX_DISTANCE 300
-#define VIENTO A0
-#define CAUDAL A1
 
 int abc = 2;
 int def = 3;
 int ghi = 4;
 int jkl = 5;
 int o = 10;
+int val = 0;
+int VIENTO = A2;
+int CAUDAL = A3;
 
 OneWire oneWire(ONE_WIRE_BUS); // creacion objeto one wire
 DallasTemperature sensors(&oneWire); // enlace para lecturas a objeto dallas temperature
@@ -32,10 +33,7 @@ void setup(void)
 void loop(void)
 {
   delay(1000);
-  temperatura();
-  ultrasonico();
-  velocidadViento();
-  velocidadCaudal();
+  IR();
 }
 
 void temperatura(void){  
@@ -55,15 +53,13 @@ void ultrasonico(void){
 void velocidadViento(void){
   int v= analogRead(VIENTO);
   Serial.print("Velocidad del viento: ");
-  Serial.print(v);
-  Serial.println("rm/s");
+  Serial.println(v);
   }
   
  void velocidadCaudal(void){
   int v= analogRead(CAUDAL);
   Serial.print("Velocidad del rio: ");
-  Serial.print(v);
-  Serial.println("rm/s");
+  Serial.println(v);
   }
 
   void con(void){
@@ -217,4 +213,8 @@ void a(void){
     delay(1000);    
   }
   
-
+  void IR(void){
+     val = analogRead(A1); // la variable val toma el valor del sensor que se conectará a la entrada analógica A1
+    Serial.println(val);  // muestra por el puerto serie el valor de la variable val
+    delay(500);  //
+ }
