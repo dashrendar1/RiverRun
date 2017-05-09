@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>River Run</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-3">
+        <img src="{% static "img/polar-01.png"%}" alt="polar">
+      </div>
+    <div class="col-md-6"align="center">
+    <form action="/form/" class="form-horizontal" method="POST">
+      {% csrf_token %}
+  <fieldset>
+    <legend>Data</legend>
+    <div class="form-group">
+      {{ form }}
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </fieldset>
+</form>
+</div>
+<div class="col-md-3">
+  <img src="{% static "img/riverrun.jpeg"%}" alt="riverron">
+</div>
+</div>
+
+{% if error %}
+<h4>{{error}}HOLA</h4>
+{% endif %}
+{% if promedios%}
+<h3>Promedios</h3>
+<hr>
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Temperatura</th>
+      <th>Viento</th>
+      <th>Fuerza</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="info">
+      <td>{{1}}</td>
+      <td>Rio Cunori</td>
+      <td>{{promedios.temp}}°C</td>
+      <td>{{promedios.viet}}%</td>
+      <td>{{promedios.fuer}}%</td>
+    </tr>
+  </tbody>
+</table>
+{% endif %}
+<h3>Datos</h3>
+<hr>
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Temperatura</th>
+      <th>Viento</th>
+      <th>Fuerza</th>
+      <th>Estado</th>
+      <th>Contaminación</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for i in lista %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{i.nombre}}</td>
+      <td>{{i.temperatura}}°C</td>
+      <td>{{i.viento}}%</td>
+      <td>{{i.fuerza}}%</td>
+      <td>{{i.estado}}</td>
+      <td>{{i.contaminacion}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  </body>
+</html>
